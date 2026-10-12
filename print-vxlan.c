@@ -34,7 +34,7 @@ static const struct tok vxlan_flags [] = {
 #define VXLAN_HDR_LEN 8
 
 /*
- * VXLAN header, RFC7348
+ * VXLAN header, RFC 7348
  *               Virtual eXtensible Local Area Network (VXLAN): A Framework
  *               for Overlaying Virtualized Layer 2 Networks over Layer 3 Networks
  *
