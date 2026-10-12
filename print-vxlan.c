@@ -32,8 +32,6 @@ static const struct tok vxlan_flags [] = {
     { 0, NULL }
 };
 #define VXLAN_HDR_LEN 8
-#define VXLAN_RSVD1_LEN 3
-#define VXLAN_RSVD2_LEN 1
 
 /*
  * VXLAN header, RFC 7348
@@ -64,7 +62,7 @@ vxlan_print(netdissect_options *ndo, const u_char *bp, u_int length)
              bittok2str_nosep(vxlan_flags, "invalid", flags), flags);
 
     /* 1st Reserved */
-    bp += VXLAN_RSVD1_LEN;
+    bp += 3;
 
     /*
      * RFC 7348 says that the I flag MUST be set.
@@ -77,7 +75,7 @@ vxlan_print(netdissect_options *ndo, const u_char *bp, u_int length)
 
     /* 2nd Reserved */
     ND_TCHECK_1(bp);
-    bp += VXLAN_RSVD2_LEN;
+    bp += 1;
 
     ether_print(ndo, bp, length - VXLAN_HDR_LEN, ND_BYTES_AVAILABLE_AFTER(bp), NULL, NULL);
 
