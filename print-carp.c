@@ -43,24 +43,22 @@
 #include "netdissect.h" /* for checksum structure and functions */
 #include "extract.h"
 
+#define CARP_ADVERTISEMENT 1
+
 void
 carp_print(netdissect_options *ndo, const u_char *bp, u_int len, u_int ttl)
 {
 	u_int version, type;
-	const char *type_s;
 
 	ndo->ndo_protocol = "carp";
 	nd_print_protocol_caps(ndo);
-	version = (GET_U_1(bp) & 0xf0) >> 4;
+	version = GET_U_1(bp) >> 4;
 	type = GET_U_1(bp) & 0x0f;
-	if (type == 1)
-		type_s = "advertise";
-	else
-		type_s = "unknown";
-	ND_PRINT("v%u-%s %u: ", version, type_s, len);
+	ND_PRINT("v%u-%s %u: ", version,
+	    type == CARP_ADVERTISEMENT ? "advertise" : "unknown", len);
 	if (ttl != 255)
 		ND_PRINT("[ttl=%u!] ", ttl);
-	if (version != 2 || type != 1)
+	if (version != 2 || type != CARP_ADVERTISEMENT)
 		return;
 	ND_PRINT("vhid=%u advbase=%u advskew=%u authlen=%u ",
 	    GET_U_1(bp + 1), GET_U_1(bp + 5), GET_U_1(bp + 2),
