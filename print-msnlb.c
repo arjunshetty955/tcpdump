@@ -46,12 +46,17 @@ struct msnlb_heartbeat_pkt {
 };
 
 void
-msnlb_print(netdissect_options *ndo, const u_char *bp)
+msnlb_print(netdissect_options *ndo, const u_char *bp, u_int length)
 {
 	const struct msnlb_heartbeat_pkt *hb;
 
 	ndo->ndo_protocol = "msnlb";
 	hb = (const struct msnlb_heartbeat_pkt *)bp;
+	if (length < sizeof(struct msnlb_heartbeat_pkt)) {
+		ND_PRINT("MS NLB heartbeat, length %u", length);
+		nd_print_invalid(ndo);
+		return;
+	}
 
 	ND_PRINT("MS NLB heartbeat");
 	ND_PRINT(", host priority: %u", GET_LE_U_4((hb->host_prio)));

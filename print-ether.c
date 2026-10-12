@@ -631,7 +631,7 @@ ethertype_print(netdissect_options *ndo,
 		return (1);
 
 	case ETHERTYPE_MS_NLB_HB:
-		msnlb_print(ndo, p);
+		msnlb_print(ndo, p, length);
 		return (1);
 
 	case ETHERTYPE_GEONET_OLD:
