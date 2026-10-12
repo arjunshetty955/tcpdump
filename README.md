@@ -28,7 +28,6 @@ tcpdump compiles and works on at least the following platforms:
 * [AIX](./doc/README.aix.md)
 * DragonFly BSD
 * FreeBSD
-* [Haiku](./doc/README.haiku.md)
 * HP-UX 11i
 * [illumos](./doc/README.solaris.md) (OmniOS, OpenIndiana)
 * GNU/Hurd
